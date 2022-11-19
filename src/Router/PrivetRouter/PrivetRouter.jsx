@@ -9,10 +9,10 @@ const PrivetRouter = ({ children }) => {
 
   if (loading) {
     return (
-      <div class="flex h-screen items-center justify-center space-x-2 animate-spin">
-        <div class="w-8 h-8 bg-blue-400 rounded-full"></div>
-        <div class="w-8 h-8 bg-pink-400 rounded-full"></div>
-        <div class="w-8 h-8 bg-blue-400 rounded-full"></div>
+      <div className="flex h-screen items-center justify-center space-x-2 animate-spin">
+        <div className="w-8 h-8 bg-blue-400 rounded-full"></div>
+        <div className="w-8 h-8 bg-pink-400 rounded-full"></div>
+        <div className="w-8 h-8 bg-blue-400 rounded-full"></div>
       </div>
     );
   }

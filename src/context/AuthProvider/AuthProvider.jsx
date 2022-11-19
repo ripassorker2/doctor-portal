@@ -32,6 +32,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
+    localStorage.removeItem("doctor-user-token");
     setLoading(true);
     signOut(auth);
   };
@@ -44,7 +45,15 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const AuthInfo = { user, createUser, loginUser, logOut, updateUser, loading };
+  const AuthInfo = {
+    user,
+    createUser,
+    loginUser,
+    logOut,
+    updateUser,
+    loading,
+    setLoading,
+  };
 
   return (
     <AuthContect.Provider value={AuthInfo}>{children}</AuthContect.Provider>

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContect } from "../../../context/AuthProvider/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContect);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleLoguot = () => {
     logOut();
@@ -103,14 +103,20 @@ const Navbar = () => {
             </li>
           )}
         </ul>
-        <div className="lg:hidden">
+        <div className="lg:hidden  ">
+          <label
+            htmlFor="dashboard-drawer"
+            className="btn  btn-sm mr-4 drawer-button lg:hidden"
+          >
+            Dashboard
+          </label>
           <button
             aria-label="Open Menu"
             title="Open Menu"
-            className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
+            className="p-2 -mr-1 mb-3 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
             onClick={() => setIsMenuOpen(true)}
           >
-            <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
+            <svg className="w-6 h-6  text-gray-600" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
                 d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
@@ -172,7 +178,7 @@ const Navbar = () => {
                     </button>
                   </div>
                 </div>
-                {/* <nav>
+                <nav>
                   <ul className="space-y-4">
                     <li>
                       <Link
@@ -190,14 +196,16 @@ const Navbar = () => {
                         Appointment
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        to={"/review"}
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Review
-                      </Link>
-                    </li>
+                    {user?.uid && (
+                      <li>
+                        <Link
+                          to={"/dashboard"}
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                          Dashboard
+                        </Link>
+                      </li>
+                    )}
                     <li>
                       <Link
                         to={"/about"}
@@ -214,16 +222,27 @@ const Navbar = () => {
                         Contact
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        to={"/login"}
-                        className="font-medium tracking-wide w-full btn btn-sm  transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Login
-                      </Link>
-                    </li>
+                    {user?.uid ? (
+                      <li>
+                        <button
+                          onClick={handleLoguot}
+                          className="font-medium tracking-wide btn btn-sm  transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    ) : (
+                      <li>
+                        <Link
+                          to={"/login"}
+                          className="font-medium w-full tracking-wide btn btn-sm  transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                          Login
+                        </Link>
+                      </li>
+                    )}
                   </ul>
-                </nav> */}
+                </nav>
               </div>
             </div>
           )}

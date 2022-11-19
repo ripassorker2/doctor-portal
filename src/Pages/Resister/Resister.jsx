@@ -1,33 +1,67 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContect } from "../../context/AuthProvider/AuthProvider";
+import useToken from "../../utilities";
 
 const Resister = () => {
-  const { createUser, updateUser } = useContext(AuthContect);
+  const { createUser, updateUser, setLoading } = useContext(AuthContect);
   const navigate = useNavigate();
-
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
+  const [createdEmail, setCreatedEmail] = useState("");
+  const token = useToken(createdEmail);
+  console.log(token);
+
+  if (token) {
+    navigate("/");
+  }
+
   const handleResister = (data) => {
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
+        // console.log(user);
         toast.success("User created succesfully!!");
-        navigate("/home");
+
         const UserInfo = {
           displayName: data.name,
         };
+
         updateUser(UserInfo)
-          .then(toast.success("User updated"))
+          .then((data) => {
+            toast.success("User updated");
+            saveUser(user?.displayName, user.email);
+            // navigate("/home");
+            setLoading(false);
+          })
           .catch((err) => toast.error(err.message));
       })
       .catch((err) => toast.error(err.message));
+  };
+
+  const saveUser = (name, email) => {
+    const user = {
+      name: name,
+      email: email,
+    };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCreatedEmail(email);
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -76,10 +110,10 @@ const Resister = () => {
                 value: 6,
                 message: "Password must be 6 character or longer",
               },
-              pattern: {
-                value: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[a-z])./,
-                message: "Password should be strong.",
-              },
+              // pattern: {
+              //   value: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[a-z])./,
+              //   message: "Password should be strong.",
+              // },
             })}
             type="password"
             placeholder="Password"
