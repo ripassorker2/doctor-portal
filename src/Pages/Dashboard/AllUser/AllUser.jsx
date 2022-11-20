@@ -15,6 +15,9 @@ const AllUser = () => {
   const handleMakeAdmin = (id) => {
     fetch(`http://localhost:5000/users/admin/${id}`, {
       method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("doctor-user-token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
