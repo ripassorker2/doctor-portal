@@ -4,9 +4,9 @@ import Main from "../../Layout/Main";
 import Appointemt from "../../Pages/Appointment/Appointemt";
 import AddDoctor from "../../Pages/Dashboard/AddDoctor/AddDoctor";
 import AllUser from "../../Pages/Dashboard/AllUser/AllUser";
-import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
 import ManegeDoctor from "../../Pages/Dashboard/ManegeDoctor/ManegeDoctor";
 import MyAppointment from "../../Pages/Dashboard/MyAppointment/MyAppointment";
+import Payment from "../../Pages/Dashboard/Payment/Payment";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Resister from "../../Pages/Resister/Resister";
@@ -72,6 +72,13 @@ const router = createBrowserRouter([
             <ManegeDoctor />
           </AdminRouter>
         ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment />,
+        loader: ({ params }) => {
+          return fetch(`http://localhost:5000/bookings/${params.id}`);
+        },
       },
     ],
   },

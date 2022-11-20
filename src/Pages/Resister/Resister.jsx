@@ -35,7 +35,6 @@ const Resister = () => {
           .then((data) => {
             toast.success("User updated");
             saveUser(user?.displayName, user.email);
-            // navigate("/home");
             setLoading(false);
           })
           .catch((err) => toast.error(err.message));

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContect } from "../../../context/AuthProvider/AuthProvider";
 
 const MyAppointment = () => {
@@ -8,7 +9,7 @@ const MyAppointment = () => {
   const url = `http://localhost:5000/bookings?email=${user?.email}`;
 
   const { data: myAppoinments } = useQuery({
-    queryKey: ["boolings", user.email],
+    queryKey: ["bookings", user.email],
     queryFn: async () => {
       const res = await fetch(url, {
         headers: {
@@ -33,8 +34,10 @@ const MyAppointment = () => {
               <th>Si no </th>
               <th>Name</th>
               <th>Treatment</th>
+              <th>Price</th>
               <th>Date</th>
-              <th>Time</th>
+              <th>Date</th>
+              <th>Payment</th>
             </tr>
           </thead>
           <tbody>
@@ -43,8 +46,25 @@ const MyAppointment = () => {
                 <th>{index + 1}</th>
                 <td>{myAppoinment?.patientName}</td>
                 <td>{myAppoinment?.ServiceName}</td>
+                <td>${myAppoinment?.price}</td>
                 <td>{myAppoinment?.date}</td>
                 <td>{myAppoinment?.time}</td>
+                <td>
+                  {myAppoinment?.paid ? (
+                    <>
+                      {" "}
+                      <button className="btn disabled btn-secondary  btn-sm">
+                        paid
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link to={`/dashboard/payment/${myAppoinment?._id}`}>
+                        <button className="btn btn-sm">pay</button>{" "}
+                      </Link>
+                    </>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

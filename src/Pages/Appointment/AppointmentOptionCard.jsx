@@ -8,6 +8,9 @@ const AppointmentOptionCard = ({ appointmentOption, setTreatment }) => {
           {appointmentOption?.name}
         </h3>
         <h1 className="text-center my-1">{appointmentOption?.slots[1]}</h1>
+        <h1 className="text-center my-1">
+          Price : ${appointmentOption?.price}
+        </h1>
         <h1 className="text-center pb-1">
           Available {appointmentOption?.slots?.length > 1 ? "spaces" : "space"}{" "}
           {appointmentOption?.slots?.length}
