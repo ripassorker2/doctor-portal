@@ -19,11 +19,10 @@ const MyAppointment = () => {
       return data;
     },
   });
-  //   console.log(myAppoinments);
 
   return (
     <div>
-      <h3 className="text-4xl text-secondary font-bold my-5 text-center">
+      <h3 className="text-4xl text-secondary font-bold my-11  text-center">
         My Appointment
       </h3>
       <div className="overflow-x-auto">

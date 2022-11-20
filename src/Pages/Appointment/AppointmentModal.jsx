@@ -10,7 +10,6 @@ const AppointmentModal = ({
   refetch,
 }) => {
   const { user } = useContext(AuthContect);
-  // console.log(user);
   const { name } = treatment;
 
   const handleSubmit = (event) => {

@@ -1,9 +1,14 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import MyAppointment from "../Pages/Dashboard/MyAppointment/MyAppointment";
+import React, { useContext } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { AuthContect } from "../context/AuthProvider/AuthProvider";
+import useAdmin from "../hooks/useAdmin";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 
 const DashBoardLayout = () => {
+  const { user } = useContext(AuthContect);
+
+  const [isAdmin] = useAdmin(user?.email);
+
   return (
     <div>
       <Navbar />
@@ -15,17 +20,29 @@ const DashBoardLayout = () => {
         />
         <div className="drawer-content ">
           {/* <!-- Page content here --> */}
-          <MyAppointment />
+          <Outlet />
         </div>
         <div className="drawer-side">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-100 text-base-content">
             {/* <!-- Sidebar content here --> */}
             <li>
-              <a>Sidebar Item 1</a>
+              <Link
+                className="font-bold text-center"
+                to={"/dashboard/myappointment"}
+              >
+                My Appointment
+              </Link>
             </li>
             <li>
-              <a>Sidebar Item 2</a>
+              {isAdmin && (
+                <Link
+                  className="font-bold text-center "
+                  to={"/dashboard/alluser"}
+                >
+                  All User
+                </Link>
+              )}
             </li>
           </ul>
         </div>

@@ -16,7 +16,6 @@ const Resister = () => {
 
   const [createdEmail, setCreatedEmail] = useState("");
   const token = useToken(createdEmail);
-  console.log(token);
 
   if (token) {
     navigate("/");
@@ -26,7 +25,6 @@ const Resister = () => {
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        // console.log(user);
         toast.success("User created succesfully!!");
 
         const UserInfo = {

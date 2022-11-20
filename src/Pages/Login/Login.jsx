@@ -13,7 +13,6 @@ const Login = () => {
 
   const [loginUserEmail, setLoginUserEmail] = useState("");
   const token = useToken(loginUserEmail);
-  console.log(token);
 
   if (token) {
     navigate(from, { replace: true });
@@ -29,11 +28,9 @@ const Login = () => {
     loginUser(data.email, data.password)
       .then((res) => {
         const user = res.user;
-        console.log(user);
+
         setLoginUserEmail(data.email);
         setLoading(false);
-        // setLoginUserEmail(user.email);
-        // console.log(user);
         toast.success("Login succesfully !!");
       })
       .catch((err) => {
